@@ -32,5 +32,16 @@ namespace ORM.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult Edit (int Id)
+        {
+            var db = new StrigEntities();
+            var student = (from s in db.Students
+                           where s.Id == Id
+                           select s).FirstOrDefault();
+
+            return View(student);
+        }
     }
 }
