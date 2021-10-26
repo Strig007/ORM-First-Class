@@ -43,5 +43,39 @@ namespace ORM.Controllers
 
             return View(student);
         }
+
+        [HttpPost]
+        public ActionResult Edit (Student st)
+        {
+            var db = new StrigEntities();
+            var student = (from s in db.Students
+                           where s.Id == st.Id
+                           select s).FirstOrDefault();
+
+            /*student.Name = st.Name;
+            student.Gender = st.Gender;
+            student.Cgpa = st.Cgpa;
+            student.Dob = st.Dob;
+            db.SaveChanges();*/
+
+            db.Entry(student).CurrentValues.SetValues(st);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        
+        public ActionResult Delete (int Id)
+        {
+            var db = new StrigEntities();
+            var student = (from s in db.Students
+                           where s.Id == Id
+                           select s).FirstOrDefault();
+
+            db.Students.Remove(student);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

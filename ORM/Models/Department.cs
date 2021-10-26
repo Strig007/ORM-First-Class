@@ -12,15 +12,16 @@ namespace ORM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Student
+    public partial class Department
     {
+        public Department()
+        {
+            this.Students = new HashSet<Student>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Dob { get; set; }
-        public string Gender { get; set; }
-        public double Cgpa { get; set; }
-        public int DepartmentId { get; set; }
     
-        public virtual Department Department { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }
